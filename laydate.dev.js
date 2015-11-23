@@ -38,7 +38,7 @@
         return laydate;
     };
 
-    laydate.v = '1.1';
+    laydate.v = '1.1.1';
 
 //获取组件存放路径
     Dates.getPath = (function () {
