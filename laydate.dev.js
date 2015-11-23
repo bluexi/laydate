@@ -492,7 +492,7 @@
 //是否显示零件
     Dates.iswrite = function () {
         var S = Dates.query, log = {
-            time: S('#laydate_hms'),
+            time: S('#laydate_hms')
 
         };
         Dates.shde(log.time, !Dates.options.istime);
