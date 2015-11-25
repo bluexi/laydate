@@ -295,24 +295,29 @@
             } else {
                 isvoid.value = Dates.elem[as.elemv].match(exp).join();
                 arr = isvoid.value.match(/\d+/g);
-                if (arr[1] < 1) {
-                    arr[1] = 1;
-                    isvoid.auto = 1;
-                } else if (arr[1] > 12) {
-                    arr[1] = 12;
-                    isvoid.auto = 1;
-                } else if (arr[1].length < 2) {
-                    isvoid.auto = 1;
+                if (arr[1]) {
+                    if (arr[1] < 1) {
+                        arr[1] = 1;
+                        isvoid.auto = 1;
+                    } else if (arr[1] > 12) {
+                        arr[1] = 12;
+                        isvoid.auto = 1;
+                    } else if (arr[1].length < 2) {
+                        isvoid.auto = 1;
+                    }
                 }
-                if (arr[2] < 1) {
-                    arr[2] = 1;
-                    isvoid.auto = 1;
-                } else if (arr[2] > Dates.months[(arr[1] | 0) - 1]) {
-                    arr[2] = 31;
-                    isvoid.auto = 1;
-                } else if (arr[2].length < 2) {
-                    isvoid.auto = 1;
+                if (arr[2]) {
+                    if (arr[2] < 1) {
+                        arr[2] = 1;
+                        isvoid.auto = 1;
+                    } else if (arr[2] > Dates.months[(arr[1] | 0) - 1]) {
+                        arr[2] = 31;
+                        isvoid.auto = 1;
+                    } else if (arr[2].length < 2) {
+                        isvoid.auto = 1;
+                    }
                 }
+
                 if (arr.length > 3) {
                     if (Dates.timeVoid(arr[3], 0)) {
                         isvoid.auto = 1;
