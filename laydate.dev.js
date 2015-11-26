@@ -282,7 +282,8 @@
     Dates.check = function () {
         var reg = Dates.options.format.replace(/YYYY|MM|DD|hh|mm|ss/g, '\\d+\\').replace(/\\$/g, '');
         var exp = new RegExp(reg), value = Dates.elem[as.elemv];
-        var arr = value.match(/\d+/g) || [], isvoid = Dates.checkVoid(arr[0], arr[1], arr[2]);
+        var arr = value.match(/\d+/g) || [],
+            isvoid = Dates.checkVoid(arr[0], arr[1], arr[2]);
         if (value.replace(/\s/g, '') !== '') {
             if (!exp.test(value)) {
                 Dates.elem[as.elemv] = '';
@@ -295,27 +296,25 @@
             } else {
                 isvoid.value = Dates.elem[as.elemv].match(exp).join();
                 arr = isvoid.value.match(/\d+/g);
-                if (arr[1]) {
-                    if (arr[1] < 1) {
-                        arr[1] = 1;
-                        isvoid.auto = 1;
-                    } else if (arr[1] > 12) {
-                        arr[1] = 12;
-                        isvoid.auto = 1;
-                    } else if (arr[1].length < 2) {
-                        isvoid.auto = 1;
-                    }
+                if (!arr[1]) arr[1] = 0;
+                if (arr[1] < 1) {
+                    arr[1] = 1;
+                    isvoid.auto = 1;
+                } else if (arr[1] > 12) {
+                    arr[1] = 12;
+                    isvoid.auto = 1;
+                } else if (arr[1].length < 2) {
+                    isvoid.auto = 1;
                 }
-                if (arr[2]) {
-                    if (arr[2] < 1) {
-                        arr[2] = 1;
-                        isvoid.auto = 1;
-                    } else if (arr[2] > Dates.months[(arr[1] | 0) - 1]) {
-                        arr[2] = 31;
-                        isvoid.auto = 1;
-                    } else if (arr[2].length < 2) {
-                        isvoid.auto = 1;
-                    }
+                if (!arr[2]) arr[2] = 0;
+                if (arr[2] < 1) {
+                    arr[2] = 1;
+                    isvoid.auto = 1;
+                } else if (arr[2] > Dates.months[(arr[1] | 0) - 1]) {
+                    arr[2] = 31;
+                    isvoid.auto = 1;
+                } else if (arr[2].length < 2) {
+                    isvoid.auto = 1;
                 }
 
                 if (arr.length > 3) {
@@ -484,6 +483,14 @@
     Dates.initDate = function () {
         var S = Dates.query, log = {}, De = new Date();
         var ymd = Dates.elem[as.elemv].match(/\d+/g) || [];
+        ymd = [
+            ymd[0] || De.getFullYear(),
+            ymd[1] || De.getMonth() + 1,
+            ymd[2] || De.getDate(),
+            ymd[3] || De.getHours(),
+            ymd[4] || De.getMinutes(),
+            ymd[5] || De.getSeconds()
+        ];
         if (ymd.length < 3) {
             ymd = Dates.options.start.match(/\d+/g) || [];
             if (ymd.length < 3) {
