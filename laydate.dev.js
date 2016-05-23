@@ -255,7 +255,7 @@
     };
 
 //时分秒的有效检测
-    Dates.timeVoid = function (times, index) {
+/*     Dates.timeVoid = function (times, index) {
         if (Dates.ymd[1] + 1 == Dates.mins[1] && Dates.ymd[2] == Dates.mins[2]) {
             if (index === 0 && (times < Dates.mins[3])) {
                 return 1;
@@ -265,6 +265,32 @@
                 return 1;
             }
         } else if (Dates.ymd[1] + 1 == Dates.maxs[1] && Dates.ymd[2] == Dates.maxs[2]) {
+            if (index === 0 && times > Dates.maxs[3]) {
+                return 1;
+            } else if (index === 1 && times > Dates.maxs[4]) {
+                return 1;
+            } else if (index === 2 && times > Dates.maxs[5]) {
+                return 1;
+            }
+        }
+        if (times > (index ? 59 : 23)) {
+            return 1;
+        }
+    }; */
+	
+	//修复如果最大值最小是显示的为同一个值的时候，只能有一个有效的问题
+	//时分秒的有效检测
+    Dates.timeVoid = function (times, index) {
+        if (Dates.ymd[1] + 1 == Dates.mins[1] && Dates.ymd[2] == Dates.mins[2]) {
+            if (index === 0 && (times < Dates.mins[3])) {
+                return 1;
+            } else if (index === 1 && times < Dates.mins[4]) {
+                return 1;
+            } else if (index === 2 && times < Dates.mins[5]) {
+                return 1;
+            }
+        }
+		if (Dates.ymd[1] + 1 == Dates.maxs[1] && Dates.ymd[2] == Dates.maxs[2]) {
             if (index === 0 && times > Dates.maxs[3]) {
                 return 1;
             } else if (index === 1 && times > Dates.maxs[4]) {
